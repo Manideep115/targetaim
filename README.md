@@ -1,36 +1,67 @@
-# 🎯 TargetAim
-A Real-Time Smart Head Tracking and Aiming System
-<br>
-<p align="center">
-  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
-  <a href="https://www.python.org/"><img src="https://img.shields.io/badge/Python-3.7+-blue.svg" alt="Python"></a>
-  <a href="https://ultralytics.com/yolo"><img src="https://img.shields.io/badge/YOLO-v8-blueviolet.svg" alt="YOLOv8"></a>
-  <a href="https://www.arduino.cc/"><img src="https://img.shields.io/badge/Arduino-ESP32-00979D.svg" alt="Arduino/ESP32"></a>
-</p>
+## 🚀 Installation & Setup
+
+### 1. Python (Host PC)
+            
+1.  **Clone this repository:**
+    ```sh
+    git clone [https://github.com/Manideep115/TargetAim.git](https://github.com/Manideep115/TargetAim.git)
+    cd TargetAim
+    ```
+2.  **Create a virtual environment (Recommended):**
+    ```sh
+    python -m venv venv
+    source venv/bin/activate  # On Windows: venv\Scripts\activate
+    ```
+3.  **Install required Python packages:**
+    ```sh
+    pip install ultralytics opencv-python face_recognition numpy pyserial
+    ```
+4.  **Add known faces:**
+    * Place images of people you want to recognize in the `known_faces/` directory.
+    * Name the image files as the person's name (e.g., `manideep.jpg`, `alex.png`). The script will use the filename as the person's name.
+
+### 2. Arduino / ESP32 (Microcontroller)
+            
+1.  Open the `arduino_servo_control/arduino_servo_control.ino` sketch in the Arduino IDE.
+2.  Select your board (Arduino Uno / ESP32) and the correct COM port.
+3.  Install the `Servo.h` library (or `ESP32Servo.h` for ESP32) if not already present.
+4.  Upload the sketch to your microcontroller.
 
 ---
 
-TargetAim is an intelligent system that detects, recognizes, and physically tracks human heads in real-time. Using a webcam, it processes the video feed with **YOLOv8** for high-speed head detection and a **Face Recognition** library to identify specific individuals.
+## 🔌 Wiring
+Connect your components to the Arduino/ESP32 as follows.
 
-Based on the target's position relative to the center of the frame, the system calculates the error and sends corrective commands via serial communication to **servo motors** (controlled by an Arduino or ESP32). This allows a physical camera or aiming device to automatically pan and tilt to follow the recognized person.
+| Component | Arduino Pin | ESP32 Pin | Connection |
+| :--- | :--- | :--- | :--- |
+| **Pan Servo** | D9 | GPIO 13 | Signal Pin |
+| **Tilt Servo** | D10 | GPIO 12 | Signal Pin |
+| **Servo V+** | 5V | 5V / VIN | 5V Power |
+| **Servo GND** | GND | GND | Ground |
 
-## ✨ Features
-* **🚀 Real-Time Detection:** Utilizes YOLOv8 for high-speed, accurate head detection.
-* **👤 Face Recognition:** Identifies known individuals from a pre-registered database of faces.
-* **🤖 Servo Aiming:** Automatically controls Pan (X-axis) and Tilt (Y-axis) servos to lock onto the target.
-* **🔌 Hardware Integration:** Communicates serially with Arduino or ESP32 for precise hardware control.
-* **🎯 Smart Tracking:** Calculates the positional error to send smooth and responsive movement commands.
+
+
+**Serial Communication:** The Python script communicates with the Arduino/ESP32 via USB serial. Ensure you update the COM port in the Python script (`main.py`) to match the one your device is connected to.
 
 ---
 
-## Diagram: System Architecture
-Here is a high-level overview of the data flow:
+## 🎬 Demo
 
-```ascii
-[ 📷 Webcam ] --> [ 💻 Python Script ] --> [ 🔌 Serial Port ] --> [ 🤖 Arduino/ESP32 ]
-                     |                                                |
-                     | 1. YOLOv8 (Detects Head)                       |
-                     | 2. Face Recognition (Identifies Face)          V
-                     | 3. Calculate (Δx, Δy)                 [ 🦾 Pan/Tilt Servos ]
-                     V
-                 [ 📺 Bounding Box on Screen ]
+*(A video or GIF of the project in action will be added here.)*
+
+
+
+---
+
+## 🔗 Project Ecosystem
+This repository is part of a larger project. The related components are:
+* **[face_recognition_project](https://github.com/Manideep115/face_recognition_project):** The core library and scripts for managing and performing face recognition.
+* **[headaim](https://github.com/Manideep115/headaim):** Contains earlier versions and related experiments for the head aiming logic.
+
+---
+
+## 👨‍💻 Author
+* **ALUR MANIDEEP**
+
+## 📄 License
+This project is licensed under the MIT License. See the `LICENSE` file for details.
